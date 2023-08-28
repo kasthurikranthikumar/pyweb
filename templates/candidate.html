@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Page</title>
+</head>
+<body>
+    <h1>Candidate Page</h1>
+    <h2>Submitted Data:</h2>
+    <ul>
+        {% for data in submitted_data %}
+            <li>{{ data }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
