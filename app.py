@@ -7,13 +7,13 @@ submitted_data = []
 
 @app.route('/')
 def index():
-    return redirect(url_for('admin'))
+    return redirect(url_for('candidate'))
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
         data = request.form['data']
-        submitted_data.append(data)
+        submitted_data = [data]
     return render_template('admin.html')
 
 @app.route('/candidate')
