@@ -2,14 +2,19 @@
 <html>
 <head>
     <title>Candidate Page</title>
+    <style>
+        /* Add your CSS styles here */
+        h2 {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <h1>Candidate Page</h1>
-    <h2>Submitted Data:</h2>
-    <ul>
-        {% for data in submitted_data %}
-            <li>{{ data }}</li>
-        {% endfor %}
-    </ul>
+    <!-- Iterate over the dictionary keys (topics) -->
+    {% for question, data_dict in submitted_data.items() %}
+        <h2>{{ question }}</h2>
+        <p>Answer: {{ data_dict['answer'] }}</p>
+         
+    {% endfor %}
 </body>
 </html>

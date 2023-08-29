@@ -2,13 +2,185 @@
 <html>
 <head>
     <title>Admin Page</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .left-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .section ul li {
+            margin-bottom: 5px;
+            cursor: pointer; /* Change cursor to pointer on hover */
+            padding: 10px;
+            transition: background-color 0.3s; /* Add smooth transition */
+        }
+
+        .section ul li:hover {
+            background-color: #ccc; /* Highlight background color on hover */
+        }
+
+        .tabcontent {
+            margin-left: 220px;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Admin Page</h1>
-    <form method="POST" action="/admin">
-        <label for="data">Enter Data:</label><br>
-        <textarea id="data" name="data" rows="4" cols="50"></textarea><br><br>
-        <input type="submit" value="Submit">
-    </form>
-</body>
-</html>
+    <div class="left-panel">
+        <a href="/" style="text-decoration: none; color: #333;">memory load it</a> <!-- Link to home -->
+        <div class="section">
+            <h3>Menu</h3>
+            <ul>
+                <li onclick="openTab(event, 'Java')">Java</li>
+                <li onclick="openTab(event, 'Selenium')">Selenium</li>
+                <li onclick="openTab(event, 'basic')">Basic</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tabcontent">
+        <!-- Content for each tab -->
+        <div id="Java" class="tabcontent">
+            <h2>Java Content</h2>
+            <!-- Links for Page 1 -->
+            <ul>
+                <li><a href="#" onclick="submitData('Explain')">This</a></li>
+                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                <li><a href="#" onclick="submitData('Explain')">This</a></li>
+                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                <li><a href="#" onclick="submitData('Explain')">This</a></li>
+                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                <li><a href="#" onclick="submitData('Explain')">This</a></li>
+                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                <li><a href="#" onclick="submitData('Explain')">This</a></li>
+                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                <li><a href="#" onclick="submitData('Explain')">This</a></li>
+                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                <li><a href="#" onclick="submitData('Explain')">This</a></li>
+                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                <li><a href="#" onclick="submitData('Explain')">This</a></li>
+                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                
+
+                <!-- Add more links here -->
+            </ul>
+        </div>
+
+        <div id="Selenium" class="tabcontent">
+            <h2>Selenium Content</h2>
+            <!-- Links for Page 2 -->
+            <ul>
+                <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
+                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li>
+                <!-- Add more links here -->
+            </ul>
+        </div>
+
+        <div id="basic" class="tabcontent">
+            <h2>Basic Content</h2>
+            <!-- Links for Page 3 -->
+            <ul>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>
+                <!-- Add more links here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript functions for tab and link handling
+        function openTab(event, tabName) {
+          
+            
+            // Display the selected tab
+            var selectedTabContent = document.getElementById(tabName);
+            //selectedTabContent.style.display = "block";
+            
+            // Scroll the selected tab into view
+            selectedTabContent.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function submitData(sheetname, question, event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            var data = {
+            sheetname: sheetname,
+            question: question
+            };
+
+            fetch("/admin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json;charset=UTF-8"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("POST request sent to /admin with sheetname:", sheetname, "and question:", question);
+                } else {
+                    console.error("Error sending POST request:", response.status, response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error("An error occurred:", error);
+            });
+        }
+
+        </script>
+    </body>
+    </html>
