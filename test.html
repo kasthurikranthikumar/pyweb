@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Typed Text Animation</title>
+    <style>
+        /* Add your CSS styles here */
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .formatted-text {
+            white-space: pre-line;
+            font-family: Arial, sans-serif;
+        }
+        
+        .typing-text {
+            white-space: pre-line;
+            border-right: 2px solid #000;
+            font-family: monospace;
+            overflow: hidden;
+            max-height: 1.2em;
+        }
+    </style> 
+</head>
+<body>
+    <div class="typing-text" id="typing-container">
+        <p><strong>Implict wait</strong> is used to improve the stability of test scripts</br>
+            by allowing the selenium to wait for a certain period of time </br>
+            before performing actions on elements in a web application</p>
+            
+            <p>Whenever your automation script tries to interact with an element like, <em>click</em> method, <em>send keys</em> method, etc.</br>
+            if the element is not immediately present in the DOM, </br>selenium will wait for the specified amount of time before giving up and throwing an exception.
+            During this wait period, </br>selenium will repeatedly check for the presence of the element.</p>
+    </div>
+    <script>
+        const typingContainer = document.getElementById('typing-container');
+        const textToType = typingContainer.innerHTML;
+        const words = textToType.split(/\s+/);
+        let wordIndex = 0;
+        
+        function typeWords() {
+            if (wordIndex < words.length) {
+                typingContainer.textContent += ' ' + words[wordIndex++];
+                setTimeout(typeWords, 200); // Adjust the delay here
+            }
+        }
+
+        typingContainer.innerHTML = '';
+        typeWords();
+    </script>
+ </body>
+</html>

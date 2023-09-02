@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import openpyxl
-
-app = Flask(__name__)
-
+ 
+app = Flask(__name__, static_url_path='/static')
+ 
 # Set a secret key for session management
 app.secret_key = 'your_secret_key'
 
@@ -18,8 +18,9 @@ def load_excel_data():
         sheet = workbook[sheet_name]
         data = {}
         for row in sheet.iter_rows(min_row=1, values_only=True):
-            key, value = row
-            data[key] = value
+            key, value, image_paths = row  # Assuming image paths are in column 3
+            image_path_list = image_paths.split(';')  # Split paths using a delimiter
+            data[key] = {'value': value, 'image_paths': image_path_list}
         excel_data[sheet_name] = data
         
     print(">>>>>>>>>>>>>>>>",excel_data)
@@ -28,23 +29,27 @@ def load_excel_data():
 # In-memory storage for submitted data.
 submitted_data = {}
 
+ 
 @app.route('/')
 def index():
     session['excel_data'] = load_excel_data()
     return redirect(url_for('candidate'))
 
+@app.route('/reset')
+def reset():
+    submitted_data = {}
+    return redirect(url_for('admin'))
+
 @app.route('/admin', methods=['GET', 'POST'])
 def admin(): 
     if request.method == 'POST':
-      
+        
         print("Received data>>>>>>:", request.get_data())
  
         data = request.get_json()
         sheetname = data['sheetname']
         question = data['question']
-        print(">>>>............>>>>>>",sheetname)
-        print(">>>>>,...........>>>>>>>>>>>",question)
-
+        
         # Retrieve Excel data from session
         excel_data = session['excel_data']
         
@@ -52,12 +57,16 @@ def admin():
         row_key = question
         
         if row_key in excel_data.get(sheetname, {}):
-            answer = excel_data[sheetname][row_key]
+            entry_data = excel_data[sheetname][row_key]
+            answer = entry_data['value']
+            image_paths = entry_data['image_paths']
         else:
             answer = None
+            image_paths = None
         
         # Store the data in the dictionary using the question as the key
-        submitted_data[question] = {'answer': answer}
+        submitted_data[question] = {'answer': answer, 'image_paths': image_paths}
+    
     return render_template('admin.html')
 
 @app.route('/candidate')

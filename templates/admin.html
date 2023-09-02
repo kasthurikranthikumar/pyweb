@@ -52,14 +52,31 @@
             margin-left: 220px;
             padding: 20px;
         }
+
+         /* Styling for the toast */
+         .toast {
+            position: fixed;
+            top: 20px; /* Adjust top positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: red; /* Change background color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            opacity: 0.9;
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
-    <div class="left-panel">
-        <a href="/" style="text-decoration: none; color: #333;">memory load it</a> <!-- Link to home -->
+    <div class="left-panel"> 
+        
         <div class="section">
             <h3>Menu</h3>
             <ul>
+                <li><a href="/" style="text-decoration: none; color: #333;" target="_blank">candidate page</a> </li>
+                <li> <a href="/reset" style="text-decoration: none; color: #333;">Reset Memory</a> </li>
+                <li>----------</li>
                 <li onclick="openTab(event, 'Java')">Java</li>
                 <li onclick="openTab(event, 'Selenium')">Selenium</li>
                 <li onclick="openTab(event, 'basic')">Basic</li>
@@ -70,25 +87,10 @@
     <div class="tabcontent">
         <!-- Content for each tab -->
         <div id="Java" class="tabcontent">
-            <h2>Java Content</h2>
+            <h2>Java </h2>
             <!-- Links for Page 1 -->
             <ul>
-                <li><a href="#" onclick="submitData('Explain')">This</a></li>
-                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
-                <li><a href="#" onclick="submitData('Explain')">This</a></li>
-                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
-                <li><a href="#" onclick="submitData('Explain')">This</a></li>
-                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
-                <li><a href="#" onclick="submitData('Explain')">This</a></li>
-                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
-                <li><a href="#" onclick="submitData('Explain')">This</a></li>
-                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
-                <li><a href="#" onclick="submitData('Explain')">This</a></li>
-                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
-                <li><a href="#" onclick="submitData('Explain')">This</a></li>
-                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
-                <li><a href="#" onclick="submitData('Explain')">This</a></li>
-                <li><a href="#" onclick="submitData('')">What is abstract class</a></li>
+                <li><a href="#" onclick="submitData('java','Explain',event)">This</a></li> 
                 
 
                 <!-- Add more links here -->
@@ -96,46 +98,25 @@
         </div>
 
         <div id="Selenium" class="tabcontent">
-            <h2>Selenium Content</h2>
+            <h2>Selenium </h2>
             <!-- Links for Page 2 -->
             <ul>
-                <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li> <li><a href="#" onclick="submitData('Link 1 for Page 2')">Link 1</a></li>
-                <li><a href="#" onclick="submitData('Link 2 for Page 2')">Link 2</a></li>
+                <li><a href="#" onclick="submitData('selenium','Implicit Wait',event)">Implicit Wait</a></li>
+                <li><a href="#" onclick="submitData('selenium','Explicit Wait',event)">Explicit Wait</a></li> 
+                <li><a href="#" onclick="submitData('selenium','Fluent Wait',event)">Fluent Wait</a></li> 
+                <li><a href="#" onclick="submitData('selenium','Implicit vs Explicit',event)">Implicit vs Explicit</a></li>
+                <li><a href="#" onclick="submitData('selenium','Implicit vs Explicit vs Fluent',event)">Implicit vs Explicit vs Fluent</a></li>  
                 <!-- Add more links here -->
             </ul>
         </div>
 
         <div id="basic" class="tabcontent">
-            <h2>Basic Content</h2>
+            <h2>Basic </h2>
             <!-- Links for Page 3 -->
             <ul>
                 <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
                 <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>  
                 <!-- Add more links here -->
             </ul>
         </div>
@@ -143,6 +124,21 @@
 
     <script>
         // JavaScript functions for tab and link handling
+        function showToast(message) {
+            // Create a toast element
+            var toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+
+            // Append the toast to the body
+            document.body.appendChild(toast);
+            console.log('Question     :      ' + toast)
+            // Automatically remove the toast after a few seconds
+            setTimeout(function () {
+                toast.remove();
+            }, 5000);
+        }
+
         function openTab(event, tabName) {
           
             
@@ -156,7 +152,11 @@
 
         function submitData(sheetname, question, event) {
             event.preventDefault(); // Prevent the default link behavior
-
+           
+            var clickedLinkText = event.target.textContent;
+            
+            showToast('Clicked: ' + clickedLinkText);
+           
             var data = {
             sheetname: sheetname,
             question: question
@@ -179,6 +179,7 @@
             .catch(error => {
                 console.error("An error occurred:", error);
             });
+           
         }
 
         </script>

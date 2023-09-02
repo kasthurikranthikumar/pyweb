@@ -2,19 +2,61 @@
 <html>
 <head>
     <title>Candidate Page</title>
+    
     <style>
+    
+body {
+            margin-left: 400px;   /* Adjust the value as needed */
+            margin-right: 400px;  /* Adjust the value as needed */ 
+        }
+
+ 
+        /* Style for the center content area */
+        .content {
+            background-color: #81d0da;
+            padding: 20px;
+        }
+
         /* Add your CSS styles here */
         h2 {
             color: red;
         }
+        
+
+        .image-container {
+        margin-bottom: 5px;
+        display: block;
+        border: 0px solid #cccccc; /* Add a border around the image container */
+        padding: 10px; /* Add padding to create space between the border and the image */
+    }
+    
+    img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #dddddd; /* Add a border around the image */
+    }
+     
     </style>
 </head>
-<body>
+<body style="font-family: AvertaStd-Black;font-size: 17px;line-height: 26px;white-space: pre-line; word-spacing: 5px;">
+    <div class="typing-text"></div>
     <!-- Iterate over the dictionary keys (topics) -->
     {% for question, data_dict in submitted_data.items() %}
         <h2>{{ question }}</h2>
-        <p>Answer: {{ data_dict['answer'] }}</p>
+        <p>{{ data_dict['answer'] | safe }}</p>
+        <div class="image-container">
+            {% if data_dict['image_paths'] %}
+            {% for image_path in data_dict.get('image_paths', []) %}
+            <div class="image-container">
+                <img src="{{ url_for('static', filename=image_path) }}" alt="Image">
+            </div>
+        {% endfor %}
+            {% else %}
+                <p>No images available</p>
+            {% endif %}
+        </div>
          
     {% endfor %}
+    </body>
 </body>
 </html>
