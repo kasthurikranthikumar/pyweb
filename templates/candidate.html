@@ -2,18 +2,15 @@
 <html>
 <head>
     <title>Candidate Page</title>
-    
     <style>
-    
-body {
-            margin-left: 400px;   /* Adjust the value as needed */
-            margin-right: 400px;  /* Adjust the value as needed */ 
+        body {
+            margin-left: 200px; /* Adjust the value as needed */
+            margin-right: 200px; /* Adjust the value as needed */
         }
 
- 
         /* Style for the center content area */
         .content {
-            background-color: #81d0da;
+            background-color: #97d0d9;
             padding: 20px;
         }
 
@@ -21,42 +18,61 @@ body {
         h2 {
             color: red;
         }
-        
 
         .image-container {
-        margin-bottom: 5px;
-        display: block;
-        border: 0px solid #cccccc; /* Add a border around the image container */
-        padding: 10px; /* Add padding to create space between the border and the image */
-    }
-    
-    img {
-        max-width: 100%;
-        height: auto;
-        border: 1px solid #dddddd; /* Add a border around the image */
-    }
-     
+            margin-bottom: 1px;
+            display: block;
+            border: 0px solid #cccccc; /* Add a border around the image container */
+            padding: 1px; /* Add padding to create space between the border and the image */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #dddddd; /* Add a border around the image */
+        }
     </style>
+    <script>
+        function checkForUpdate() {
+            fetch('/check_update')
+            .then(response => response.json())
+            .then(data => {
+                if (data.updated) {
+                    // Data has changed, so refresh the page
+                    window.location.reload();
+                }
+                // Schedule the next check for update after a delay (e.g., 5 seconds)
+                setTimeout(checkForUpdate, 1000); // Check every 5 seconds
+            })
+            .catch(error => {
+                console.error('Error checking for updates:', error);
+                // Handle the error as needed
+            });
+        }
+        
+        // Start checking for updates when the page loads
+        window.onload = checkForUpdate;
+        </script>
+         
+        
+        
+        
 </head>
-<body style="font-family: AvertaStd-Black;font-size: 17px;line-height: 26px;white-space: pre-line; word-spacing: 5px;">
+<body style="font-family: AvertaStd-Black; font-size: 17px; line-height: 26px; word-spacing: 5px;">
     <div class="typing-text"></div>
     <!-- Iterate over the dictionary keys (topics) -->
     {% for question, data_dict in submitted_data.items() %}
-        <h2>{{ question }}</h2>
-        <p>{{ data_dict['answer'] | safe }}</p>
-        <div class="image-container">
-            {% if data_dict['image_paths'] %}
-            {% for image_path in data_dict.get('image_paths', []) %}
-            <div class="image-container">
-                <img src="{{ url_for('static', filename=image_path) }}" alt="Image">
-            </div>
+    <h2 style="white-space: pre-line;">{{ question }}</h2>
+    <p style="white-space: pre-line;">{{ data_dict['answer'] | safe }}</p>
+    <div class="image-container">
+        {% if data_dict['image_paths'] %}
+        {% for image_path in data_dict.get('image_paths', []) %}
+        <img src="{{ url_for('static', filename=image_path) }}" alt="Image" >
         {% endfor %}
-            {% else %}
-                <p>No images available</p>
-            {% endif %}
-        </div>
-         
+        {% else %}
+        <p>No images available</p>
+        {% endif %}
+    </div>
     {% endfor %}
-    </body>
 </body>
 </html>

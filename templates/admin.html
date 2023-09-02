@@ -9,6 +9,10 @@
             padding: 0;
             font-family: Arial, sans-serif;
         }
+        /* Highlight class for clicked links */
+        .highlight {
+            background-color: yellow;
+        }
 
         .left-panel {
             position: fixed;
@@ -154,7 +158,16 @@
             event.preventDefault(); // Prevent the default link behavior
            
             var clickedLinkText = event.target.textContent;
-            
+            var clickedLink = event.target; 
+
+            // Highlight the clicked link by adding a CSS class
+            clickedLink.classList.add('highlight');
+
+            // Remove the highlight class after 5 seconds
+            setTimeout(function () {
+                clickedLink.classList.remove('highlight');
+            }, 5000);
+
             showToast('Clicked: ' + clickedLinkText);
            
             var data = {

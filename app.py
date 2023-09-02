@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session,jsonify
 import openpyxl
  
 app = Flask(__name__, static_url_path='/static')
@@ -8,7 +8,6 @@ app.secret_key = 'your_secret_key'
 
 # Load Excel data into session on app startup
 def load_excel_data():
-    print("    am inside load_Excel_Data!!!!!   ")
     excel_file = 'blackbox.xlsx'  # Provide the actual file path
     workbook = openpyxl.load_workbook(excel_file)
     
@@ -22,13 +21,10 @@ def load_excel_data():
             image_path_list = image_paths.split(';')  # Split paths using a delimiter
             data[key] = {'value': value, 'image_paths': image_path_list}
         excel_data[sheet_name] = data
-        
-    print(">>>>>>>>>>>>>>>>",excel_data)
     return excel_data
 
 # In-memory storage for submitted data.
 submitted_data = {}
-
  
 @app.route('/')
 def index():
@@ -37,7 +33,7 @@ def index():
 
 @app.route('/reset')
 def reset():
-    submitted_data = {}
+    submitted_data.clear()
     return redirect(url_for('admin'))
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -63,7 +59,7 @@ def admin():
         else:
             answer = None
             image_paths = None
-        
+        submitted_data.clear()  
         # Store the data in the dictionary using the question as the key
         submitted_data[question] = {'answer': answer, 'image_paths': image_paths}
     
@@ -73,6 +69,21 @@ def admin():
 def candidate(): 
     print(">>>>....submitted_data........>>>>>>",submitted_data)
     return render_template('candidate.html', submitted_data=submitted_data)
+
+current_data_hash = hash(str(submitted_data))
+
+@app.route('/check_update')
+def check_update():
+    global current_data_hash
+
+    # Calculate the hash of the current submitted_data
+    new_data_hash = hash(str(submitted_data))
+
+    if new_data_hash != current_data_hash:
+        current_data_hash = new_data_hash
+        return jsonify({'updated': True})
+    
+    return jsonify({'updated': False})
 
 if __name__ == '__main__':
     app.run(debug=True)
