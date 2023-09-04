@@ -17,10 +17,18 @@ def load_excel_data():
         sheet = workbook[sheet_name]
         data = {}
         for row in sheet.iter_rows(min_row=1, values_only=True):
-            key, value, image_paths = row  # Assuming image paths are in column 3
-            image_path_list = image_paths.split(';')  # Split paths using a delimiter
-            data[key] = {'value': value, 'image_paths': image_path_list}
+            #("ROW content - ",row)
+            is_yes_or_no, question, value, image_paths = row   
+            if is_yes_or_no == "Yes":
+                if ';' in image_paths:
+                    image_path_list = image_paths.split(';')  # Split paths using a delimiter
+                else:
+                    image_path_list = ['noimage.png']
+
+                value = value.replace("'", "").replace('"', '').replace(':', '-')
+                data[question] = {'value': value, 'image_paths': image_path_list}
         excel_data[sheet_name] = data
+    #print("total data>>>>>>:", excel_data)
     return excel_data
 
 # In-memory storage for submitted data.
@@ -29,6 +37,7 @@ submitted_data = {}
 @app.route('/')
 def index():
     session['excel_data'] = load_excel_data()
+    print("total data from excel >>>>>>2:", session['excel_data'] )
     return redirect(url_for('candidate'))
 
 @app.route('/reset')
@@ -67,7 +76,7 @@ def admin():
 
 @app.route('/candidate')
 def candidate(): 
-    print(">>>>....submitted_data........>>>>>>",submitted_data)
+    #print(">>>>....submitted_data........>>>>>>",submitted_data)
     return render_template('candidate.html', submitted_data=submitted_data)
 
 current_data_hash = hash(str(submitted_data))

@@ -81,22 +81,64 @@
                 <li><a href="/" style="text-decoration: none; color: #333;" target="_blank">candidate page</a> </li>
                 <li> <a href="/reset" style="text-decoration: none; color: #333;">Reset Memory</a> </li>
                 <li>----------</li>
+                <li onclick="openTab(event, 'Basic')">Basic</li>
                 <li onclick="openTab(event, 'Java')">Java</li>
                 <li onclick="openTab(event, 'Selenium')">Selenium</li>
-                <li onclick="openTab(event, 'basic')">Basic</li>
+                <li onclick="openTab(event, 'API')">API</li>
+                <li onclick="openTab(event, 'Testng')">TestNG</li>
+                <li onclick="openTab(event, 'Mannual')">Mannual</li>
+                <li onclick="openTab(event, 'Cucumber')">Cucumber</li>
+                <li onclick="openTab(event, 'SQL')">SQL</li>
+                <li onclick="openTab(event, 'Projects')">Projects</li>
+                <li onclick="openTab(event, 'Git')">Git</li>
+                <li onclick="openTab(event, 'CICD')">CICD</li>
+                
             </ul>
         </div>
     </div>
 
     <div class="tabcontent">
         <!-- Content for each tab -->
+
+        <div id="Basic" class="tabcontent">
+            <h2>Basic </h2>
+            <!-- Links for Page 3 -->
+            <ul>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+                <li><a href="#" onclick="submitData('basic','Chllenge-OnsiteOffShore',event)">Chllenge-OnsiteOffShore</a></li> 
+                <li><a href="#" onclick="submitData('basic','SDLC',event)">SDLC</a></li>  
+                <li><a href="#" onclick="submitData('basic','less time',event)">less time</a></li>  
+                <li><a href="#" onclick="submitData('basic','Agile',event)">agile</a></li>  
+                <li><a href="#" onclick="submitData('basic','prod issue',event)">prod issue</a></li>   
+
+                <!-- Add more links here -->
+            </ul>
+        </div>
         <div id="Java" class="tabcontent">
             <h2>Java </h2>
             <!-- Links for Page 1 -->
             <ul>
-                <li><a href="#" onclick="submitData('java','Explain',event)">This</a></li> 
-                
-
+                <li><a href="#" onclick="submitData('java','this',event)">This</a></li> 
+                <li><a href="#" onclick="submitData('java','super',event)">Super</a></li> 
+                <li><a href="#" onclick="submitData('java','Method Overloading',event)">Method Overloading</a></li> 
+                <li><a href="#" onclick="submitData('java','static',event)">static</a></li> 
+                <li><a href="#" onclick="submitData('java','oop',event)">oops</a></li> 
+                <li><a href="#" onclick="submitData('java','encapsulation-accessmodifiers',event)">encapsulation-accessmodifiers</a></li> 
+                <li><a href="#" onclick="submitData('java','Encapuslation',event)">Encapuslation</a></li> 
+                <li><a href="#" onclick="submitData('java','interface vs abstract',event)">interface vs abstract</a></li> 
+                <li><a href="#" onclick="submitData('java','stack vs heap',event)">stack vs heap</a></li> 
+                <li><a href="#" onclick="submitData('java','PRE vs POST INCREMENT',event)">PRE vs POST INCREMENT</a></li> 
+                <li><a href="#" onclick="submitData('java','take input from console',event)">take input from console</a></li> 
+                <li><a href="#" onclick="submitData('java','streams',event)">streams</a></li> 
+                <li><a href="#" onclick="submitData('java','heaps',event)">heaps</a></li> 
+                <li><a href="#" onclick="submitData('java','overload main method',event)">overload main method</a></li> 
+                <li><a href="#" onclick="submitData('java','Distructors',event)">Distructors</a></li> 
+                <li><a href="#" onclick="submitData('java','memory out of exception',event)">memory out of exception</a></li> 
+                <li><a href="#" onclick="submitData('java','sigleton',event)">sigleton</a></li> 
+                <li><a href="#" onclick="submitData('java','few design patterns',event)">few design patterns</a></li> 
+                <li><a href="#" onclick="submitData('java','this',event)">This</a></li> 
+                <li><a href="#" onclick="submitData('java','this',event)">This</a></li> 
+                <li><a href="#" onclick="submitData('java','this',event)">This</a></li> 
                 <!-- Add more links here -->
             </ul>
         </div>
@@ -110,20 +152,62 @@
                 <li><a href="#" onclick="submitData('selenium','Fluent Wait',event)">Fluent Wait</a></li> 
                 <li><a href="#" onclick="submitData('selenium','Implicit vs Explicit',event)">Implicit vs Explicit</a></li>
                 <li><a href="#" onclick="submitData('selenium','Implicit vs Explicit vs Fluent',event)">Implicit vs Explicit vs Fluent</a></li>  
+                <li><a href="#" onclick="submitData('selenium','TakeScreenShot',event)">Take ScreenShot</a></li> 
+                
                 <!-- Add more links here -->
             </ul>
         </div>
 
-        <div id="basic" class="tabcontent">
-            <h2>Basic </h2>
+        <div id="API" class="tabcontent">
+            <h2>API </h2>
             <!-- Links for Page 3 -->
             <ul>
                 <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
-                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li>  
-                <!-- Add more links here -->
             </ul>
         </div>
+        <div id="Testng" class="tabcontent">
+            <h2>Test NG </h2>
+            <!-- Links for Page 3 -->
+            <ul>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+            </ul>
+        </div>
+        <div id="Mannual" class="tabcontent">
+            <h2>Mannual </h2>
+            <!-- Links for Page 3 -->
+            <ul>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+            </ul>
+        </div>
+        <div id="Git" class="tabcontent">
+            <h2>Git </h2>
+            <!-- Links for Page 3 -->
+            <ul>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+            </ul>
+        </div>
+        <div id="CICD" class="tabcontent">
+            <h2>CICD </h2>
+            <!-- Links for Page 3 -->
+            <ul>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+            </ul>
+        </div>
+        <div id="Cucumber" class="tabcontent">
+            <h2>Cucumber </h2>
+            <!-- Links for Page 3 -->
+            <ul>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+            </ul>
+        </div>
+        <div id="SQL" class="tabcontent">
+            <h2>SQL </h2>
+            <!-- Links for Page 3 -->
+            <ul>
+                <li><a href="#" onclick="submitData('basic','introduction',event)">Introduction</a></li> 
+            </ul>
+        </div>
+         
     </div>
 
     <script>
