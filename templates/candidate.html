@@ -67,7 +67,9 @@
     <div class="image-container">
         {% if data_dict['image_paths'] %}
         {% for image_path in data_dict.get('image_paths', []) %}
+        {% if image_path != 'noimage.png' %}
         <img src="{{ url_for('static', filename=image_path) }}" alt="Image" >
+        {% endif %}
         {% endfor %}
         {% else %}
         <p>No images available</p>

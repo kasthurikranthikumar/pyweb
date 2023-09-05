@@ -3,8 +3,7 @@ import openpyxl
  
 app = Flask(__name__, static_url_path='/static')
  
-# Set a secret key for session management
-app.secret_key = 'your_secret_key'
+
 
 # Load Excel data into session on app startup
 def load_excel_data():
@@ -17,33 +16,36 @@ def load_excel_data():
         sheet = workbook[sheet_name]
         data = {}
         for row in sheet.iter_rows(min_row=1, values_only=True):
-            #("ROW content - ",row)
+            #print("ROW content - ",row)
             is_yes_or_no, question, value, image_paths = row   
             if is_yes_or_no == "Yes":
-                if ';' in image_paths:
-                    image_path_list = image_paths.split(';')  # Split paths using a delimiter
-                else:
+                if not image_paths:
                     image_path_list = ['noimage.png']
+                elif ';' in image_paths:
+                    image_path_list = image_paths.split(';')
+                else:
+                    image_path_list = [image_paths]
 
                 value = value.replace("'", "").replace('"', '').replace(':', '-')
                 data[question] = {'value': value, 'image_paths': image_path_list}
         excel_data[sheet_name] = data
-    #print("total data>>>>>>:", excel_data)
+    print("total data>>>>>>:", excel_data)
     return excel_data
 
 # In-memory storage for submitted data.
 submitted_data = {}
+
+# Load Excel data at app startup (just once)
+excel_data = load_excel_data()
  
 @app.route('/')
-def index():
-    session['excel_data'] = load_excel_data()
-    print("total data from excel >>>>>>2:", session['excel_data'] )
-    return redirect(url_for('candidate'))
+def index(): 
+    return render_template('candidate.html', submitted_data=submitted_data)
 
-@app.route('/reset')
-def reset():
-    submitted_data.clear()
-    return redirect(url_for('admin'))
+@app.route('/candidate')
+def candidate():  
+    return render_template('candidate.html', submitted_data=submitted_data)
+
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin(): 
@@ -55,29 +57,20 @@ def admin():
         sheetname = data['sheetname']
         question = data['question']
         
-        # Retrieve Excel data from session
-        excel_data = session['excel_data']
-        
-        # Using the variable 'question' as row_key was not defined. Let's fix that.
-        row_key = question
-        
-        if row_key in excel_data.get(sheetname, {}):
-            entry_data = excel_data[sheetname][row_key]
+        if sheetname in excel_data and question in excel_data[sheetname]:
+            entry_data = excel_data[sheetname][question]
             answer = entry_data['value']
             image_paths = entry_data['image_paths']
+            
         else:
             answer = None
             image_paths = None
-        submitted_data.clear()  
-        # Store the data in the dictionary using the question as the key
-        submitted_data[question] = {'answer': answer, 'image_paths': image_paths}
-    
+      
+        response_data = {'answer': answer, 'image_paths': image_paths}
+        submitted_data.clear() 
+        submitted_data[question] = response_data
     return render_template('admin.html')
 
-@app.route('/candidate')
-def candidate(): 
-    #print(">>>>....submitted_data........>>>>>>",submitted_data)
-    return render_template('candidate.html', submitted_data=submitted_data)
 
 current_data_hash = hash(str(submitted_data))
 
