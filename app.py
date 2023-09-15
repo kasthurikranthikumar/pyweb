@@ -3,10 +3,22 @@ import openpyxl
  
  
 app = Flask(__name__, static_url_path='/static')
- 
+
+# Initialize current_file_hash as a global variable
+current_file_hash = None
+current_data_hash = None
 
 # Load Excel data into session on app startup
-def load_excel_data():
+def load_excel_data(): 
+
+    global current_data_hash, current_file_hash
+
+    with open('values.txt', 'w') as file:
+        file.write(f'Sheet Name: basic, Question: introduction')
+    with open('values.txt', 'r') as file:
+        values = file.readlines()
+        current_file_hash = hash(str(values))
+
     excel_file = 'blackbox.xlsx'  # Provide the actual file path
     workbook = openpyxl.load_workbook(excel_file)
     
@@ -56,7 +68,10 @@ def admin():
         data = request.get_json()
         sheetname = data['sheetname']
         question = data['question']
-        
+
+        with open('values.txt', 'w') as file:
+            file.write(f'Sheet Name: {sheetname}, Question: {question}\n')
+
         if sheetname in excel_data and question in excel_data[sheetname]:
             entry_data = excel_data[sheetname][question]
             answer = entry_data['value']
@@ -68,26 +83,31 @@ def admin():
       
         response_data = {'answer': answer, 'image_paths': image_paths}
         submitted_data.clear() 
-        submitted_data[question] = response_data
+        submitted_data[question] = response_data 
     return render_template('admin.html', excel_data=excel_data);
 
 
 current_data_hash = hash(str(submitted_data))
+ 
 
 @app.route('/check_update')
 def check_update():
-    global current_data_hash
+    global current_data_hash, current_file_hash
+
+    with open('values.txt', 'r') as file:
+        values = file.readlines() 
 
     # Calculate the hash of the current submitted_data
     new_data_hash = hash(str(submitted_data))
+    new_file_hash = hash(str(values))
 
-    if new_data_hash != current_data_hash:
+    if new_data_hash != current_data_hash or new_file_hash != current_file_hash:
         current_data_hash = new_data_hash
+        current_file_hash = new_file_hash
         return jsonify({'updated': True})
     
     return jsonify({'updated': False})
 
  
-
 if __name__ == '__main__':
     app.run(debug=True)
