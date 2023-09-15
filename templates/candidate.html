@@ -54,7 +54,14 @@
         }
         
         // Start checking for updates when the page loads
-        window.onload = checkForUpdate;
+        //window.onload = checkForUpdate;
+
+        function refreshPage() {
+            // Reload the current page
+            window.location.reload();
+        }
+        // Schedule the page refresh every 1 second (1000 milliseconds)
+        setInterval(refreshPage, 1000);
         </script>
          
         
