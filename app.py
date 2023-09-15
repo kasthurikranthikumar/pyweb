@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session,jsonify
 import openpyxl
  
+ 
 app = Flask(__name__, static_url_path='/static')
  
-
 
 # Load Excel data into session on app startup
 def load_excel_data():
@@ -69,7 +69,7 @@ def admin():
         response_data = {'answer': answer, 'image_paths': image_paths}
         submitted_data.clear() 
         submitted_data[question] = response_data
-    return render_template('admin.html')
+    return render_template('admin.html', excel_data=excel_data);
 
 
 current_data_hash = hash(str(submitted_data))
@@ -86,6 +86,8 @@ def check_update():
         return jsonify({'updated': True})
     
     return jsonify({'updated': False})
+
+ 
 
 if __name__ == '__main__':
     app.run(debug=True)
