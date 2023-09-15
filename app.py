@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session,jsonify
+from flask_session import Session
 import openpyxl
  
 app = Flask(__name__, static_url_path='/static')
+# Configure Flask to use Redis for sessions
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_PERMANENT'] = True
+app.config['SESSION_USE_SIGNER'] = True
 app.secret_key = 'your_secret_key'
 
 # In-memory storage for submitted data (now stored in the session)
@@ -84,7 +89,8 @@ def admin():
 @app.route('/check_update')
 def check_update(): 
     current_data_hash = hash(str(get_submitted_data()))
- 
+    print(current_data_hash)
+    print(session.get('current_data_hash', None))
     if current_data_hash != session.get('current_data_hash', None):
         session['current_data_hash'] = current_data_hash
         return jsonify({'updated': True})

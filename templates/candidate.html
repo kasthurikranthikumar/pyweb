@@ -38,12 +38,14 @@
             fetch('/check_update')
             .then(response => response.json())
             .then(data => {
+                console.log(data.updated);
                 if (data.updated) {
                     // Data has changed, so refresh the page
+                    console.log('data changed');
                     window.location.reload();
                 }
                 // Schedule the next check for update after a delay (e.g., 5 seconds)
-                setTimeout(checkForUpdate, 1000); // Check every 5 seconds
+                setTimeout(checkForUpdate, 1000); // Check every 1 seconds
             })
             .catch(error => {
                 console.error('Error checking for updates:', error);
