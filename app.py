@@ -1,24 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for, session,jsonify
 import openpyxl
  
- 
 app = Flask(__name__, static_url_path='/static')
+app.secret_key = 'your_secret_key'
 
-# Initialize current_file_hash as a global variable
-current_file_hash = None
-current_data_hash = None
+# In-memory storage for submitted data (now stored in the session)
+def get_submitted_data():
+    return session.get('submitted_data', {})
+
+def set_submitted_data(data):
+    session['submitted_data'] = data
 
 # Load Excel data into session on app startup
 def load_excel_data(): 
-
-    global current_data_hash, current_file_hash
-
-    with open('values.txt', 'w') as file:
-        file.write(f'Sheet Name: basic, Question: introduction')
-    with open('values.txt', 'r') as file:
-        values = file.readlines()
-        current_file_hash = hash(str(values))
-
     excel_file = 'blackbox.xlsx'  # Provide the actual file path
     workbook = openpyxl.load_workbook(excel_file)
     
@@ -41,36 +35,31 @@ def load_excel_data():
                 value = value.replace("'", "").replace('"', '').replace(':', '-')
                 data[question] = {'value': value, 'image_paths': image_path_list}
         excel_data[sheet_name] = data
-    print("total data>>>>>>:", excel_data)
+    #print("total data>>>>>>:", excel_data)
     return excel_data
-
-# In-memory storage for submitted data.
-submitted_data = {}
 
 # Load Excel data at app startup (just once)
 excel_data = load_excel_data()
  
 @app.route('/')
 def index(): 
+    submitted_data = get_submitted_data()
     return render_template('candidate.html', submitted_data=submitted_data)
 
 @app.route('/candidate')
 def candidate():  
+    submitted_data = get_submitted_data()
     return render_template('candidate.html', submitted_data=submitted_data)
-
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin(): 
     if request.method == 'POST':
         
-        print("Received data>>>>>>:", request.get_data())
+        print("Received data  >>>>>>  :", request.get_data())
  
         data = request.get_json()
         sheetname = data['sheetname']
         question = data['question']
-
-        with open('values.txt', 'w') as file:
-            file.write(f'Sheet Name: {sheetname}, Question: {question}\n')
 
         if sheetname in excel_data and question in excel_data[sheetname]:
             entry_data = excel_data[sheetname][question]
@@ -82,32 +71,25 @@ def admin():
             image_paths = None
       
         response_data = {'answer': answer, 'image_paths': image_paths}
-        submitted_data.clear() 
-        submitted_data[question] = response_data 
+        submitted_data = get_submitted_data()
+        submitted_data.clear()
+        submitted_data[question] = response_data
+        set_submitted_data(submitted_data)
+
+        with open('values.txt', 'w') as file:
+            file.write(f'Sheet Name: {sheetname}, Question: {question}\n')
+
     return render_template('admin.html', excel_data=excel_data);
 
-
-current_data_hash = hash(str(submitted_data))
- 
-
 @app.route('/check_update')
-def check_update():
-    global current_data_hash, current_file_hash
-
-    with open('values.txt', 'r') as file:
-        values = file.readlines() 
-
-    # Calculate the hash of the current submitted_data
-    new_data_hash = hash(str(submitted_data))
-    new_file_hash = hash(str(values))
-
-    if new_data_hash != current_data_hash or new_file_hash != current_file_hash:
-        current_data_hash = new_data_hash
-        current_file_hash = new_file_hash
+def check_update(): 
+    current_data_hash = hash(str(get_submitted_data()))
+ 
+    if current_data_hash != session.get('current_data_hash', None):
+        session['current_data_hash'] = current_data_hash
         return jsonify({'updated': True})
     
     return jsonify({'updated': False})
 
- 
 if __name__ == '__main__':
     app.run(debug=True)
