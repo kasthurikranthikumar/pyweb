@@ -1,26 +1,16 @@
-from flask import Flask, render_template, request, redirect, url_for, session,jsonify
-from flask_session import Session
+from flask import Flask, app, render_template, request, redirect, url_for, session,jsonify 
 import openpyxl
+import json
  
-app = Flask(__name__, static_url_path='/static')
-# Configure Flask to use Redis for sessions
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SESSION_PERMANENT'] = True
-app.config['SESSION_USE_SIGNER'] = True
-app.secret_key = 'your_secret_key'
-
-# In-memory storage for submitted data (now stored in the session)
-def get_submitted_data():
-    return session.get('submitted_data', {})
-
-def set_submitted_data(data):
-    session['submitted_data'] = data
-
+app=Flask(__name__,static_url_path='/static')
+ 
 # Load Excel data into session on app startup
 def load_excel_data(): 
     excel_file = 'blackbox.xlsx'  # Provide the actual file path
     workbook = openpyxl.load_workbook(excel_file)
-    
+    with open('test.txt', 'w') as file:
+        # Write a single line of text to the file
+        file.write('"Introduction":{"answer": "wait a min", "image_paths": "[noimage.png]"}')
     excel_data = {}
     
     for sheet_name in workbook.sheetnames:
@@ -46,15 +36,28 @@ def load_excel_data():
 # Load Excel data at app startup (just once)
 excel_data = load_excel_data()
  
-@app.route('/')
-def index(): 
-    submitted_data = get_submitted_data()
-    return render_template('candidate.html', submitted_data=submitted_data)
-
 @app.route('/candidate')
 def candidate():  
-    submitted_data = get_submitted_data()
-    return render_template('candidate.html', submitted_data=submitted_data)
+    submitted_data_dict = {}  # Define an empty dictionary by default
+  
+    with open('test.txt', 'r') as file: 
+        submitted_data_str = "{"+file.read()+"}"
+        print(f"Data uuuuuu>>>>>>>>>>>>>>>>>>: {submitted_data_str}")
+        try:
+            submitted_data_dict = json.loads(submitted_data_str)
+            # Now, 'submitted_data_dict' is a Python dictionary
+            print(submitted_data_dict)
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+
+         # Check the data type of submitted_data
+        data_type = type(submitted_data_dict)
+     
+
+        # Print the data type to the server logs
+        print(f"Data Type>>>>>>>>>>>>>>>>>>: {data_type}")
+        print(f"Data>>>>>>>>>>>>>>>>>>: {submitted_data_dict}")
+    return render_template('candidate.html', submitted_data=submitted_data_dict)
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin(): 
@@ -76,13 +79,10 @@ def admin():
             image_paths = None
       
         response_data = {'answer': answer, 'image_paths': image_paths}
-        submitted_data = get_submitted_data()
-        submitted_data.clear()
-        submitted_data[question] = response_data
-        set_submitted_data(submitted_data)
-
-        with open('values.txt', 'w') as file:
-            file.write(f'Sheet Name: {sheetname}, Question: {question}\n')
+         
+        with open('test.txt', 'w') as file:
+            #file.write(f'"Sheet Name": "{sheetname}", "Question":"{question}"')
+            file.write(f'"question": "{response_data}"')
 
     return render_template('admin.html', excel_data=excel_data);
 
