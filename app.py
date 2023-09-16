@@ -10,7 +10,7 @@ def load_excel_data():
     workbook = openpyxl.load_workbook(excel_file)
     with open('test.txt', 'w') as file:
         # Write a single line of text to the file
-        file.write('"Introduction":{"answer": "wait a min", "image_paths": "[noimage.png]"}')
+        file.write('"Introduction":{"answer": "wait a min", "image_paths": []}')
     excel_data = {}
     
     for sheet_name in workbook.sheetnames:
@@ -41,7 +41,7 @@ def candidate():
     submitted_data_dict = {}  # Define an empty dictionary by default
   
     with open('test.txt', 'r') as file: 
-        submitted_data_str = "{"+file.read()+"}"
+        submitted_data_str = file.read().replace("'","\"");
         print(f"Data uuuuuu>>>>>>>>>>>>>>>>>>: {submitted_data_str}")
         try:
             submitted_data_dict = json.loads(submitted_data_str)
@@ -55,7 +55,7 @@ def candidate():
      
 
         # Print the data type to the server logs
-        print(f"Data Type>>>>>>>>>>>>>>>>>>: {data_type}")
+        #print(f"Data Type>>>>>>>>>>>>>>>>>>: {data_type}")
         print(f"Data>>>>>>>>>>>>>>>>>>: {submitted_data_dict}")
     return render_template('candidate.html', submitted_data=submitted_data_dict)
 
@@ -82,7 +82,9 @@ def admin():
          
         with open('test.txt', 'w') as file:
             #file.write(f'"Sheet Name": "{sheetname}", "Question":"{question}"')
-            file.write(f'"question": "{response_data}"')
+            file.write('{')
+            file.write(f'"{question}": {response_data}')
+            file.write('}')
 
     return render_template('admin.html', excel_data=excel_data);
 

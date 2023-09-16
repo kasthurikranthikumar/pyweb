@@ -1,1 +1,0 @@
-{"Sheet Name": "mannual", "Question": authentication vs authorization"}

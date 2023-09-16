@@ -58,33 +58,52 @@
 
         function refreshPage() {
             // Reload the current page
-            //window.location.reload();
+            window.location.reload();
         }
         // Schedule the page refresh every 1 second (1000 milliseconds)
         setInterval(refreshPage, 1000);
-        </script>
-         
-        
-        
+        </script> 
         
 </head>
 <body style="font-family: AvertaStd-Black; font-size: 17px; line-height: 26px; word-spacing: 5px;">
     <div class="typing-text"></div>
-    <!-- Iterate over the dictionary keys (topics) -->
-    {% for question, data_dict in submitted_data.items() %}
-    <h2 style="white-space: pre-line;">{{ question }}</h2>
-    <p style="white-space: pre-line;">{{ data_dict['answer'] | safe }}</p>
-    <div class="image-container">
-        {% if data_dict['image_paths'] %}
-        {% for image_path in data_dict.get('image_paths', []) %}
-        {% if image_path != 'noimage.png' %}
-        <img src="{{ url_for('static', filename=image_path) }}" alt="Image" >
-        {% endif %}
+
+    <!-- Print submitted_data before the loop 
+    <pre>{{ submitted_data | tojson(indent=2) }}</pre>-->
+
+    <!-- Add a test statement to check if items() is working 
+    <p>Testing items() method:</p>
+    <ul>
+        {% for question, data_dict in submitted_data.items() %}
+        <li>{{ question }}: {{ data_dict['answer'] }}</li>
         {% endfor %}
-        {% else %}
-        <p>No images available</p>
-        {% endif %}
-    </div>
+    </ul>-->
+
+    <!-- Iterate over the dictionary keys (topics)-->
+    {% for question, data_dict in submitted_data.items() %}
+    <h2 style="white-space: pre-line;">{{ question }}</h2> 
+    
+    {% if data_dict is defined %}
+        <p style="white-space: pre-line;">{{ data_dict['answer'] | safe }}</p>
+        
+        <div class="image-container">
+            {% if data_dict['image_paths'] %}
+                {% for image_path in data_dict.get('image_paths', []) %}
+                    {% if image_path != 'noimage.png' %}
+                        <img src="{{ url_for('static', filename=image_path) }}" alt="Image">
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No images available</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <p style="color: red;">Data not available for this question.</p>
+    {% endif %}
+    
     {% endfor %}
 </body>
+
+
+
 </html>
