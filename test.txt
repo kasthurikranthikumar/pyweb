@@ -1,1 +1,1 @@
-{"Challenge-estimate": {'answer': 'Story size keep on changes - hence we miss delivering the product', 'image_paths': ['noimage.png']}}
+"Introduction":{"answer": "wait a min", "image_paths": []}

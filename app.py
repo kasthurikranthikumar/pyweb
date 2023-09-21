@@ -17,7 +17,7 @@ def load_excel_data():
         sheet = workbook[sheet_name]
         data = {}
         for row in sheet.iter_rows(min_row=1, values_only=True):
-            #print("ROW content - ",row)
+            print("ROW content - ",row)
             is_yes_or_no, question, value, image_paths = row   
             if is_yes_or_no == "Yes":
                 if not image_paths:
