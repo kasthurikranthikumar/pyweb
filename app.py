@@ -42,7 +42,7 @@ def candidate():
   
     with open('test.txt', 'r') as file: 
         submitted_data_str = file.read().replace("'","\"");
-        print(f"Data uuuuuu>>>>>>>>>>>>>>>>>>: {submitted_data_str}")
+        #print(f"Data uuuuuu>>>>>>>>>>>>>>>>>>: {submitted_data_str}")
         try:
             submitted_data_dict = json.loads(submitted_data_str)
             # Now, 'submitted_data_dict' is a Python dictionary
@@ -56,7 +56,7 @@ def candidate():
 
         # Print the data type to the server logs
         #print(f"Data Type>>>>>>>>>>>>>>>>>>: {data_type}")
-        print(f"Data>>>>>>>>>>>>>>>>>>: {submitted_data_dict}")
+        #print(f"Data>>>>>>>>>>>>>>>>>>: {submitted_data_dict}")
     return render_template('candidate.html', submitted_data=submitted_data_dict)
 
 @app.route('/admin', methods=['GET', 'POST'])

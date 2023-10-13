@@ -42,7 +42,7 @@
         }
 
         .section ul li {
-            margin-bottom: 5px;
+            margin-bottom: 5;
             cursor: pointer; /* Change cursor to pointer on hover */
             padding: 10px;
             transition: background-color 0.3s; /* Add smooth transition */
@@ -54,7 +54,7 @@
 
         .tabcontent {
             margin-left: 130px;
-            padding: 1px;
+            padding: 0px;
         }
 
          /* Styling for the toast */
@@ -72,6 +72,20 @@
         }
         .separator-dot {
             margin: 0 5px; /* Adjust the margin as needed */
+            color: red;
+        }
+        .tabcontent {
+        background-color: rgb(243, 244, 240);
+        }
+
+        /* Add a dynamic background color to each section */
+        .tabcontent:nth-child(odd) {
+        background-color: rgba(84, 206, 75, 0.15);
+        }
+        .tabcontent k2 {
+        text-align: center;
+        color: red;
+        text-transform: uppercase;
         }
     </style>
 </head>
@@ -91,7 +105,7 @@
     <div class="tabcontent">
         {% for sheet_name, data in excel_data.items() %}
             <div id="{{ sheet_name }}" class="tabcontent">
-                <h2>{{ sheet_name }}</h2>
+                <k2>-------------------------------------------------------------------------------------------------------------------     {{ sheet_name }}    -------------------------------------------------------------------</k2>
                 <p>
                     {% for question, entry in data.items() %}
                         <span><a href="#" onclick="submitData('{{ sheet_name }}', '{{ question }}', event)">{{ question }}</a></span>
