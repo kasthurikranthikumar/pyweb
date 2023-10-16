@@ -4,9 +4,11 @@
  
     <title>Candidate Page</title>
     <style>
+        
+ 
         body {
-            margin-left: 200px; /* Adjust the value as needed */
-            margin-right: 200px; /* Adjust the value as needed */
+            margin-left: 20px; /* Adjust the value as needed */
+            margin-right: 20px; /* Adjust the value as needed */
         }
 
         /* Style for the center content area */
@@ -61,11 +63,17 @@
             window.location.reload();
         }
         // Schedule the page refresh every 1 second (1000 milliseconds)
-        setInterval(refreshPage, 1000);
+        setInterval(refreshPage, 2000);
+        window.onload = function() {
+       
+                
+       }
+  
+
         </script> 
         
 </head>
-<body style="font-family: AvertaStd-Black; font-size: 17px; line-height: 26px; word-spacing: 5px;">
+<body style="font-family: Arial, sans-serif; font-size: 17px; line-height: 26px; word-spacing: 5px;">
     <div class="typing-text"></div>
 
     <!-- Print submitted_data before the loop 
@@ -84,7 +92,7 @@
     <h2 style="white-space: pre-line;">{{ question }}</h2> 
     
     {% if data_dict is defined %}
-        <p style="white-space: pre-line;">{{ data_dict['answer'] | safe }}</p>
+        <p id="k1" style="white-space: pre-line;">{{ data_dict['answer'] | safe }}</p>
         
         <div class="image-container">
             {% if data_dict['image_paths'] %}
