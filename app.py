@@ -59,7 +59,7 @@ def candidate():
         #print(f"Data>>>>>>>>>>>>>>>>>>: {submitted_data_dict}")
     return render_template('candidate.html', submitted_data=submitted_data_dict)
 
-@app.route('/nimda', methods=['GET', 'POST'])
+@app.route('/admin', methods=['GET', 'POST'])
 def admin(): 
     if request.method == 'POST':
         
